@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      user: root
+      password: root
+      uri: mongodb://localhost:27017/covid_db
+  webflux:
+    base-path: /covid-testing-service
+  codec:
+    max-in-memory-size: 10MB
+
+server:
+  port : 8081
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.ReactiveMongoTemplate: INFO
