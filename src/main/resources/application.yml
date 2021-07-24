@@ -3,7 +3,7 @@ spring:
     mongodb:
       user: root
       password: root
-      uri: mongodb://localhost:27017/covid_db
+      uri: mongodb://localhost:27017/covid_testing_db
   webflux:
     base-path: /covid-testing-service
   codec:
