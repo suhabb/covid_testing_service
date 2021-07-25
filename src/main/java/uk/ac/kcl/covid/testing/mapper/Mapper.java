@@ -56,18 +56,7 @@ public class Mapper {
         }
     }
 
-    public List<CovidInfo> mapToCovidInfoList(List<CovidInfoDto> covidInfoDtoList) {
-
-        try {
-            return objectMapper.readValue(writeValueAsString(covidInfoDtoList), new TypeReference<List<CovidInfo>>(){});
-        } catch (IOException exception) {
-            log.debug("Json exception read value method", exception);
-            throw new RuntimeException(exception);
-        }
-    }
-
     public CovidInfoDto mapToCovidInfo(CovidInfo covidInfo) {
-
         try {
             return objectMapper.readValue(writeValueAsString(covidInfo), CovidInfoDto.class);
         } catch (IOException exception) {
@@ -75,23 +64,10 @@ public class Mapper {
             throw new RuntimeException(exception);
         }
     }
-    public CovidInfo mapToCovidInfo(CovidInfoDto covidInfoDto) {
 
+    public List<CovidInfoDto> mapToCovidInfoList(List<CovidInfo> covidInfoList) {
         try {
-            return objectMapper.readValue(writeValueAsString(covidInfoDto), CovidInfo.class);
-        } catch (IOException exception) {
-            log.debug("Json exception read value method", exception);
-            throw new RuntimeException(exception);
-        }
-    }
-
-
-
-
-    public List<CovidInfoDto> mapStringToCovidInfoList(String jsonString) {
-
-        try {
-            return objectMapper.readValue(jsonString,new TypeReference<List<CovidInfoDto>>(){});
+            return objectMapper.readValue(writeValueAsString(covidInfoList), new TypeReference<List<CovidInfoDto>>(){});
         } catch (IOException exception) {
             log.debug("Json exception read value method", exception);
             throw new RuntimeException(exception);

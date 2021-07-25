@@ -1,18 +1,19 @@
 package uk.ac.kcl.covid.testing.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import uk.ac.kcl.covid.testing.application_service.CovidInfoApplicationService;
 import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class CovidInfoController {
 
     private CovidInfoApplicationService covidInfoApplicationService;
@@ -21,14 +22,12 @@ public class CovidInfoController {
         this.covidInfoApplicationService = covidInfoApplicationService;
     }
 
-    @GetMapping("/covid/search")
-    public Mono<ResponseEntity<List<CovidInfoDto>>> search(@RequestParam("iso-code") Optional<String> isoCode) {
-
-      //  Flux<CovidInfoDto> fluxCountryDto = covidInfoApplicationService.search(isoCode);
-       // return fluxCountryDto.collectList().map(ResponseEntity::ok);
-
-        return null;
+    @GetMapping("/testing/all")
+    public Mono<ResponseEntity<List<CovidInfoDto>>> findAll() {
+        Flux<CovidInfoDto> covidInfoDtoFlux = covidInfoApplicationService.findAll();
+        return covidInfoDtoFlux.collectList().map(ResponseEntity::ok);
     }
+
 
     @GetMapping("/testing/iso-code/{isoCode}")
     public Mono<ResponseEntity<CovidInfoDto>> findByIsoCode(@PathVariable("isoCode") String isoCode) {
