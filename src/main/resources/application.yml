@@ -7,7 +7,7 @@ spring:
   webflux:
     base-path: /covid-testing-service
   codec:
-    max-in-memory-size: 10MB
+    max-in-memory-size: 20MB
 
 server:
   port : 8081

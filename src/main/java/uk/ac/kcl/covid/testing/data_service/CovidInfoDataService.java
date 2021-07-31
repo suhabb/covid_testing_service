@@ -1,5 +1,6 @@
 package uk.ac.kcl.covid.testing.data_service;
 
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,10 +19,12 @@ public class CovidInfoDataService {
     private CovidInfoRepository covidInfoRepository;
 
     private ReactiveMongoTemplate reactiveMongoTemplate;
+    private Environment environment;
 
     public CovidInfoDataService(ReactiveMongoTemplate reactiveMongoTemplate,CovidInfoRepository countryRepository){
         this.covidInfoRepository = countryRepository;
         this.reactiveMongoTemplate = reactiveMongoTemplate;
+
     }
 
     public Flux<CovidInfo> search(Optional<String> isoCode){
