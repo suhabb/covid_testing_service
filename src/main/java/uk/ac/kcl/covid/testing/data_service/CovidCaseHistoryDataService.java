@@ -19,11 +19,15 @@ public class CovidCaseHistoryDataService {
         this.reactiveMongoTemplate = reactiveMongoTemplate;
     }
 
-    public Mono<CovidCaseCountry> save(CovidCaseCountry covidCaseCountry){
+    public Mono<CovidCaseCountry> findTimelineByIsoCode(String isoCode) {
+        return this.covidCaseHistoryRepository.findTimelineByIsoCode(isoCode);
+    }
+
+    public Mono<CovidCaseCountry> save(CovidCaseCountry covidCaseCountry) {
         return this.covidCaseHistoryRepository.save(covidCaseCountry);
     }
 
-    public Mono<Void> deleteAll(){
+    public Mono<Void> deleteAll() {
         return this.covidCaseHistoryRepository.deleteAll();
     }
 }

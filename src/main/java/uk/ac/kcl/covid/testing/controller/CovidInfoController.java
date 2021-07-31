@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import uk.ac.kcl.covid.testing.application_service.CovidInfoApplicationService;
+import uk.ac.kcl.covid.testing.data_transfer.CovidCaseCountryDto;
 import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
 
 import java.util.List;
@@ -33,6 +34,12 @@ public class CovidInfoController {
     public Mono<ResponseEntity<CovidInfoDto>> findByIsoCode(@PathVariable("isoCode") String isoCode) {
         Mono<CovidInfoDto> monoCountryDto = covidInfoApplicationService.findByIsoCode(isoCode);
         return monoCountryDto.map(ResponseEntity::ok );
+    }
+
+    @GetMapping("/testing/timeline/{isoCode}")
+    public Mono<ResponseEntity<CovidCaseCountryDto>> findTimelineIsoCode(@PathVariable("isoCode") String isoCode) {
+        Mono<CovidCaseCountryDto> covidCaseCountryMono = covidInfoApplicationService.findTimeline(isoCode);
+        return covidCaseCountryMono.map(ResponseEntity::ok );
     }
 
     @GetMapping

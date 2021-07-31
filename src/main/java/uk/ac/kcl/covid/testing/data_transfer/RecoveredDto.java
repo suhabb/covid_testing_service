@@ -1,26 +1,27 @@
 package uk.ac.kcl.covid.testing.data_transfer;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uk.ac.kcl.covid.testing.domain.Timeline;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "date"
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CovidCaseCountryDto {
+public class RecoveredDto {
 
-    @JsonProperty("country")
-    private String country;
+    @JsonProperty("date")
+    private String date;
 
-    @JsonProperty("isoCode")
-    private String isoCode;
+    @JsonProperty("value")
+    private Integer value;
 
-    @JsonProperty("timeline")
-    private Timeline timeline;
+
 
 }

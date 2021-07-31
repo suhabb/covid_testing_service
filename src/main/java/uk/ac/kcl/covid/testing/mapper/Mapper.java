@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import uk.ac.kcl.covid.testing.data_transfer.CovidCaseCountryDto;
 import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
 import uk.ac.kcl.covid.testing.domain.CovidCaseCountry;
 import uk.ac.kcl.covid.testing.domain.CovidInfo;
@@ -75,9 +76,9 @@ public class Mapper {
         }
     }
 
-    public CovidCaseCountry mapToCovidCaseHistory(CovidCaseCountry covidCaseCountry) {
+    public CovidCaseCountryDto mapToCovidCaseCountry(CovidCaseCountry covidCaseCountry) {
         try {
-            return objectMapper.readValue(writeValueAsString(covidCaseCountry), CovidCaseCountry.class);
+            return objectMapper.readValue(writeValueAsString(covidCaseCountry), CovidCaseCountryDto.class);
         } catch (IOException exception) {
             log.debug("Json exception read value method", exception);
             throw new RuntimeException(exception);
