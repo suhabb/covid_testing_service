@@ -16,33 +16,33 @@ import java.util.List;
 public class CovidCaseHistory {
 
     @JsonProperty("continent")
-    public String continent;
+    private String continent;
     @JsonProperty("location")
-    public String location;
+    private String location;
     @JsonProperty("population")
-    public Double population;
+    private Double population;
     @JsonProperty("population_density")
-    public Double populationDensity;
+    private Double populationDensity;
     @JsonProperty("median_age")
-    public Double medianAge;
+    private Double medianAge;
     @JsonProperty("aged_65_older")
-    public Double aged65Older;
+    private Double aged65Older;
     @JsonProperty("aged_70_older")
-    public Double aged70Older;
+    private Double aged70Older;
     @JsonProperty("gdp_per_capita")
-    public Double gdpPerCapita;
+    private Double gdpPerCapita;
     @JsonProperty("cardiovasc_death_rate")
-    public Double cardiovascDeathRate;
+    private Double cardiovascDeathRate;
     @JsonProperty("diabetes_prevalence")
-    public Double diabetesPrevalence;
+    private Double diabetesPrevalence;
     @JsonProperty("handwashing_facilities")
-    public Double handwashingFacilities;
+    private Double handwashingFacilities;
     @JsonProperty("hospital_beds_per_thousand")
-    public Double hospitalBedsPerThousand;
+    private Double hospitalBedsPerThousand;
     @JsonProperty("life_expectancy")
-    public Double lifeExpectancy;
+    private Double lifeExpectancy;
     @JsonProperty("human_development_index")
-    public Double humanDevelopmentIndex;
+    private Double humanDevelopmentIndex;
     @JsonProperty("data")
-    public List<CovidStatsDto> data = null;
+    private List<CovidStatsDto> data = null;
 }

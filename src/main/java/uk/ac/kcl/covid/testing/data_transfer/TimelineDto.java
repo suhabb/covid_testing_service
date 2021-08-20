@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uk.ac.kcl.covid.testing.domain.Cases;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class TimelineDto {
 
     @JsonProperty("cases")
-    private List<Cases> cases;
+    private List<CasesDto> cases;
 
     @JsonProperty("deaths")
     private List<DeathsDto> deaths;

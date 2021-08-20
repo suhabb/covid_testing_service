@@ -25,7 +25,6 @@ public class CovidInfoApplicationService {
         this.covidInfoDataService = covidInfoDataService;
         this.covidCaseHistoryDataService = covidCaseHistoryDataService;
         this.mapper = mapper;
-
     }
 
     public Mono<CovidInfoDto> findByIsoCode(String isoCode) {

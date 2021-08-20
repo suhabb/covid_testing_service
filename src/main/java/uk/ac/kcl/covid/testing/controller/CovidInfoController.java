@@ -1,7 +1,6 @@
 package uk.ac.kcl.covid.testing.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +13,6 @@ import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 public class CovidInfoController {
 
     private CovidInfoApplicationService covidInfoApplicationService;
@@ -28,7 +26,6 @@ public class CovidInfoController {
         Flux<CovidInfoDto> covidInfoDtoFlux = covidInfoApplicationService.findAll();
         return covidInfoDtoFlux.collectList().map(ResponseEntity::ok);
     }
-
 
     @GetMapping("/testing/iso-code/{isoCode}")
     public Mono<ResponseEntity<CovidInfoDto>> findByIsoCode(@PathVariable("isoCode") String isoCode) {

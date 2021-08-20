@@ -23,10 +23,14 @@ import uk.ac.kcl.covid.testing.mapper.Mapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -75,16 +79,15 @@ public class CovidWebDataService {
                 .bodyToFlux(CovidInfo.class)
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(2)));
         log.info("Deleting All Data {}:", LocalDateTime.now());
-        covidCaseHistoryDataService.deleteAll().subscribe();
+        covidInfoDataService.deleteAll().subscribe();
         log.info("Starting to add data from API.............  ,Time:{}", LocalDateTime.now());
         covidInfoFlux.map(covidInfo -> covidInfoDataService.save(covidInfo).subscribe()).subscribe();
     }
 
     @Scheduled(fixedRate = 60 * 60 * 1000)
-    public void getUpdatedCovidWorldDataFromApi2() throws InterruptedException, IOException {
+    public void getUpdatedCovidTimelineDataFromApi() throws InterruptedException, IOException {
         log.info(" API update started {}:", LocalDate.now());
         List<String> isoCountries = buildListOfIso3Countries();
-        List<Mono<String>> countryList = new ArrayList<>();
         covidCaseHistoryDataService.deleteAll().subscribe();
         log.info("Deleting All Data {}:", LocalDateTime.now());
         File resource = new ClassPathResource(
@@ -94,7 +97,7 @@ public class CovidWebDataService {
         for (String isoCountry : isoCountries) {
             Mono<String> covidCaseHistoryMono = this.webClient
                     .get()
-                    .uri("https://corona.lmao.ninja/v3/covid-19/historical/" + isoCountry + "?lastdays=60")
+                    .uri("https://corona.lmao.ninja/v3/covid-19/historical/" + isoCountry + "?lastdays=30")
                     .retrieve()
                     .bodyToMono(String.class)
                     .onErrorReturn(mockTimelineJson);
@@ -103,9 +106,11 @@ public class CovidWebDataService {
                 if (!json.isEmpty()) {
                     String country = json.getString(KEY);
                     if (Objects.nonNull(country)) {
-                        log.info("Country:{}", new Locale("", isoCountry.substring(0,2)).getDisplayCountry());
+                        log.info("Country:{}", new Locale("", isoCountry.substring(0, 2))
+                                .getDisplayCountry());
                         CovidCaseCountry covidCaseCountry = new CovidCaseCountry();
-                        covidCaseCountry.setCountry(new Locale("", isoCountry.substring(0,2)).getDisplayCountry());
+                        covidCaseCountry.setCountry(new Locale("", isoCountry.substring(0, 2))
+                                .getDisplayCountry());
                         covidCaseCountry.setIsoCode(isoCountry);
                         JSONObject timelineJson = (JSONObject) json.get(TIMELINE);
                         JSONObject jsonRecovered = (JSONObject) timelineJson.get(RECOVERED);
@@ -116,7 +121,7 @@ public class CovidWebDataService {
                         for (String key : jsonRecovered.keySet()) {
                             Recovered recovered = new Recovered();
                             Integer val = (Integer) jsonRecovered.get(key);
-                            recovered.setDate(key);
+                            recovered.setDate(formatDate(key));
                             recovered.setValue(val);
                             recoveredList.add(recovered);
                         }
@@ -125,7 +130,7 @@ public class CovidWebDataService {
                         for (String key : jsonCases.keySet()) {
                             Cases cases = new Cases();
                             Integer val = (Integer) jsonCases.get(key);
-                            cases.setDate(key);
+                            cases.setDate(formatDate(key));
                             cases.setValue(val);
                             casesList.add(cases);
                         }
@@ -134,7 +139,7 @@ public class CovidWebDataService {
                         for (String key : jsonDeaths.keySet()) {
                             Deaths deaths = new Deaths();
                             Integer val = (Integer) jsonDeaths.get(key);
-                            deaths.setDate(key);
+                            deaths.setDate(formatDate(key));
                             deaths.setValue(val);
                             deathsList.add(deaths);
                         }
@@ -149,6 +154,16 @@ public class CovidWebDataService {
         }
     }
 
+    private String formatDate(String key) {
+        try {
+            Date dateKey = new SimpleDateFormat("MM/dd/yy").parse(key);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return dateFormat.format(dateKey);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public HashMap<String, String> buildMapOfIso3Countries() {
 

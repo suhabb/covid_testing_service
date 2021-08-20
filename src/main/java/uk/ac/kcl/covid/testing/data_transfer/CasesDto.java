@@ -17,8 +17,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeathsDto {
-
+public class CasesDto {
 
     @JsonProperty("date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
