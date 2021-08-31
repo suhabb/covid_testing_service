@@ -3,6 +3,7 @@ package uk.ac.kcl.covid.testing.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,6 +14,7 @@ import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
 import java.util.List;
 
 @RestController
+@RequestMapping("/testing")
 public class CovidInfoController {
 
     private CovidInfoApplicationService covidInfoApplicationService;
@@ -21,19 +23,19 @@ public class CovidInfoController {
         this.covidInfoApplicationService = covidInfoApplicationService;
     }
 
-    @GetMapping("/testing/all")
+    @GetMapping("/all")
     public Mono<ResponseEntity<List<CovidInfoDto>>> findAll() {
         Flux<CovidInfoDto> covidInfoDtoFlux = covidInfoApplicationService.findAll();
         return covidInfoDtoFlux.collectList().map(ResponseEntity::ok);
     }
 
-    @GetMapping("/testing/iso-code/{isoCode}")
+    @GetMapping("/iso-code/{isoCode}")
     public Mono<ResponseEntity<CovidInfoDto>> findByIsoCode(@PathVariable("isoCode") String isoCode) {
         Mono<CovidInfoDto> monoCountryDto = covidInfoApplicationService.findByIsoCode(isoCode);
         return monoCountryDto.map(ResponseEntity::ok );
     }
 
-    @GetMapping("/testing/timeline/{isoCode}")
+    @GetMapping("/timeline/{isoCode}")
     public Mono<ResponseEntity<CovidCaseCountryDto>> findTimelineIsoCode(@PathVariable("isoCode") String isoCode) {
         Mono<CovidCaseCountryDto> covidCaseCountryMono = covidInfoApplicationService.findTimeline(isoCode);
         return covidCaseCountryMono.map(ResponseEntity::ok );

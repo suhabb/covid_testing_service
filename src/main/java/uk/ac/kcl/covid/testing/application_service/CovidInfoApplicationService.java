@@ -28,9 +28,9 @@ public class CovidInfoApplicationService {
     }
 
     public Mono<CovidInfoDto> findByIsoCode(String isoCode) {
-        Mono<CovidInfo> countryMono = this.covidInfoDataService.findByIsoCode(isoCode);
-        countryMono.map(c-> new Date(c.getUpdated()));
-        return countryMono.map(c -> mapper.readValue(c, CovidInfoDto.class));
+        Mono<CovidInfo> covidInfoMono = this.covidInfoDataService.findByIsoCode(isoCode);
+        covidInfoMono.map(c-> new Date(c.getUpdated()));
+        return covidInfoMono.map(c -> mapper.readValue(c, CovidInfoDto.class));
     }
 
     public Flux<CovidInfoDto> findAll(){

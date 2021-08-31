@@ -1,0 +1,20 @@
+{
+  "country": "United Kingdom",
+  "isoCode": "GBR",
+  "timeline": {
+    "cases": [
+      {
+        "date": "2021-07-03",
+        "value": 73635
+      },
+      {
+        "date": "2021-06-19",
+        "value": 63875
+      },
+      {
+        "date": "2021-06-15",
+        "value": 61820
+      }
+    ]
+  }
+}

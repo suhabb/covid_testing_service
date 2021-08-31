@@ -1,0 +1,31 @@
+{
+  "updated": 1630436599158,
+  "country": "UK",
+  "countryInfo": {
+    "_id": 826,
+    "iso2": "GB",
+    "iso3": "GBR",
+    "lat": 54,
+    "flag": "https://disease.sh/assets/img/flags/gb.png"
+  },
+  "cases": 6789581,
+  "todayCases": 32181,
+  "deaths": 132535,
+  "todayDeaths": 50,
+  "recovered": 5466316,
+  "todayRecovered": 39254,
+  "active": 1190730,
+  "critical": 988,
+  "casesPerOneMillion": 99408,
+  "deathsPerOneMillion": 1940,
+  "tests": 269857086,
+  "testsPerOneMillion": 3951040,
+  "population": 68300272,
+  "continent": "Europe",
+  "oneCasePerPeople": 10,
+  "oneDeathPerPeople": 515,
+  "oneTestPerPeople": 0,
+  "activePerOneMillion": 17433.75,
+  "recoveredPerOneMillion": 80033.59,
+  "criticalPerOneMillion": 14.47
+}

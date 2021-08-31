@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uk.ac.kcl.covid.testing.data_transfer.CovidCaseCountryDto;
 import uk.ac.kcl.covid.testing.data_transfer.CovidInfoDto;
@@ -18,8 +17,11 @@ import java.util.List;
 @Slf4j
 public class Mapper {
 
-    @Autowired
-    public ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
+
+    public Mapper(ObjectMapper objectMapper){
+        this.objectMapper = objectMapper;
+    }
 
     public <T> T readValue(Object object, Class<T> clazz) {
         try {
@@ -58,9 +60,18 @@ public class Mapper {
         }
     }
 
-    public CovidInfoDto mapToCovidInfo(CovidInfo covidInfo) {
+    public CovidInfoDto mapStringToCovidInfoDto(String covidInfo) {
         try {
-            return objectMapper.readValue(writeValueAsString(covidInfo), CovidInfoDto.class);
+            return objectMapper.readValue(covidInfo, CovidInfoDto.class);
+        } catch (IOException exception) {
+            log.debug("Json exception read value method", exception);
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public CovidInfo mapStringToCovidInfo(String covidInfo) {
+        try {
+            return objectMapper.readValue(covidInfo, CovidInfo.class);
         } catch (IOException exception) {
             log.debug("Json exception read value method", exception);
             throw new RuntimeException(exception);
@@ -85,9 +96,18 @@ public class Mapper {
         }
     }
 
-    public CovidCaseCountry mapToCovidCaseHistory(String covidCaseCountry) {
+    public CovidCaseCountry mapStringToCovidCaseHistory(String covidCaseCountry) {
         try {
             return objectMapper.readValue(covidCaseCountry, CovidCaseCountry.class);
+        } catch (IOException exception) {
+            log.debug("Json exception read value method", exception);
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public CovidCaseCountryDto mapStringToCovidCaseCountryDto(String covidCaseCountry) {
+        try {
+            return objectMapper.readValue(covidCaseCountry, CovidCaseCountryDto.class);
         } catch (IOException exception) {
             log.debug("Json exception read value method", exception);
             throw new RuntimeException(exception);
