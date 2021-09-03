@@ -1,7 +1,7 @@
 # Covid Testing Service
 
 Covid Testing Service is a Reactive Spring Boot Microservice which returns the data of covid testing/timelines/cases of each country.
-The data source used is publicly available database in the github account of OWID(Our World In Data). 
+The data source used is publicly available in api https://corona.lmao.ninja/ (Open Disease Data API). 
 
 - Covid Testing service runs on the port 8081
   `` http://localhost:8081``
@@ -60,4 +60,4 @@ What things you need to install the software and how to install them
   - https://spring.io/reactive
   
  ## Dataset
-    - https://github.com/owid/covid-19-data/tree/master/public/data
+    - https://corona.lmao.ninja/v3/covid-19/countries
