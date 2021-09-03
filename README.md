@@ -35,7 +35,7 @@ What things you need to install the software and how to install them
    * ``(Or)``
   - mvn spring-boot:run
    * ``(Or)``
-  - Can import in IntelliJ aand run as main application by adding the Main file
+  - Can import in IntelliJ and run as main application by adding the Main file
 
 ## API
   - http://localhost:8081/covid-testing-service/testing/iso-code/{iso-code}
@@ -48,7 +48,7 @@ What things you need to install the software and how to install them
 
 1. Check for jdk version as it requires JDK 11
       - <terminal>> java -version
-2.  Check if mongo service is on
+2.  Check if mongo service is up:
       - mongod --dbpath <your-path>/data/db
        
 ## Contributing
