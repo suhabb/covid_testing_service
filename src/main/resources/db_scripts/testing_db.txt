@@ -1,0 +1,5 @@
+use covid_testing_db;
+db.createCollection("covidInfo");
+db.createCollection("covidStats");
+db.covidStats.createIndex({" countryInfo.iso3": 1 }, { unique: true } );
+db.covidInfo.createIndex({"isoCode": 1 }, { unique: true } );
