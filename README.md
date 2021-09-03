@@ -3,7 +3,7 @@
 Covid Testing Service is a Reactive Spring Boot Microservice which returns the data of covid testing/timelines/cases of each country.
 The data source used is publicly available database in the github account of OWID(Our World In Data). 
 
-- Covid Vacciantion service runs on the port 8081
+- Covid Testing service runs on the port 8081
   `` http://localhost:8081``
 
 ## Prerequisites
